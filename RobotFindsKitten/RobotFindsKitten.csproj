@@ -10,4 +10,10 @@
   <ItemGroup>
     <PackageReference Include="dotnet-curses" Version="1.0.2" />
   </ItemGroup>
+  <ItemGroup>
+    <None Remove="Components\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Components\" />
+  </ItemGroup>
 </Project>
