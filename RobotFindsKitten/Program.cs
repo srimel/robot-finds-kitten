@@ -26,7 +26,10 @@ class Program
         { 
             for (int j = 0; j < COLS; j++)
             {
+                NCurses.AttributeOn(CursesAttribute.BLINK);
                 NCurses.MoveAddChar(i, j, 'o');
+                NCurses.Refresh();
+                NCurses.AttributeOff(CursesAttribute.BLINK);
 			}
 		}
 
