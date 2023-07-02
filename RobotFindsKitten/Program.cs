@@ -16,13 +16,7 @@ class Program
             throw new NotSupportedException();
 		}
 
-        NCurses.StartColor();
-        NCurses.InitPair(1, CursesColor.CYAN, CursesColor.BLACK);
-        NCurses.InitPair(2, CursesColor.RED, CursesColor.BLACK);
-        NCurses.InitPair(3, CursesColor.GREEN, CursesColor.BLACK);
-        NCurses.InitPair(4, CursesColor.MAGENTA, CursesColor.BLACK);
-        NCurses.InitPair(5, CursesColor.YELLOW, CursesColor.BLACK);
-        NCurses.InitPair(6, CursesColor.BLUE, CursesColor.BLACK);
+        Color.InitColors();
 
         int yMax, xMax;
         NCurses.GetMaxYX(screen, out yMax, out xMax);
