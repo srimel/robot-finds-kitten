@@ -11,11 +11,21 @@ class Program
         NCurses.NoEcho();
         NCurses.SetCursor(0);
 
+        if (!NCurses.HasColors())
+        {
+            throw new NotSupportedException();
+		}
+
+        NCurses.StartColor();
+        NCurses.InitPair(1, CursesColor.CYAN, CursesColor.BLACK);
+
         int yMax, xMax;
         NCurses.GetMaxYX(screen, out yMax, out xMax);
 
         string screenDimens = $"Terminal Dimensions Y: {yMax}, X: {xMax}";
+        NCurses.AttributeOn(NCurses.ColorPair(1));
         NCurses.AddString(screenDimens);
+        NCurses.AttributeOff(NCurses.ColorPair(1));
         NCurses.Refresh();
 
 
