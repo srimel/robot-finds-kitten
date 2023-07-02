@@ -1,6 +1,4 @@
-﻿using System;
-using Mindmagma.Curses;
-using System.Runtime.InteropServices;
+﻿using Mindmagma.Curses;
 
 namespace RobotFindsKitten.Components
 {
@@ -53,6 +51,11 @@ namespace RobotFindsKitten.Components
 		public void MoveAddStr(int y, int x, string msg)
 		{
 			NCurses.MoveWindowAddString(WindowPtr, y, x, msg);
+		}
+
+		public void MoveCursor(int y, int x)
+		{
+			NCurses.MoveWindowCursor(WindowPtr, y, x);
 		}
 
 		public void PopulateWindow()
