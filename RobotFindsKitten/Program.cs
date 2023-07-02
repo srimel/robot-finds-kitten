@@ -18,6 +18,11 @@ class Program
 
         NCurses.StartColor();
         NCurses.InitPair(1, CursesColor.CYAN, CursesColor.BLACK);
+        NCurses.InitPair(2, CursesColor.RED, CursesColor.BLACK);
+        NCurses.InitPair(3, CursesColor.GREEN, CursesColor.BLACK);
+        NCurses.InitPair(4, CursesColor.MAGENTA, CursesColor.BLACK);
+        NCurses.InitPair(5, CursesColor.YELLOW, CursesColor.BLACK);
+        NCurses.InitPair(6, CursesColor.BLUE, CursesColor.BLACK);
 
         int yMax, xMax;
         NCurses.GetMaxYX(screen, out yMax, out xMax);
@@ -34,8 +39,13 @@ class Program
         window.MoveAddStr(1, 1, $"Window Dimensions Y: {window.yMax}, X: {window.xMax}");
         window.Refresh();
 
+        NCurses.Nap(1000);
+        window.PopulateWindow();
+
         int finalMessageRow = yMax / 4 + window.yMax + 3;
+        NCurses.AttributeOn(NCurses.ColorPair(3));
         NCurses.MoveAddString(finalMessageRow, 0, "Press any key to end program...");
+        NCurses.AttributeOff(NCurses.ColorPair(3));
         NCurses.Refresh();
 
         window.GetChar();

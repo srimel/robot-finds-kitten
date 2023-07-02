@@ -8,12 +8,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="dotnet-curses" Version="1.0.2" />
-  </ItemGroup>
-  <ItemGroup>
     <None Remove="Components\" />
+    <None Remove="Packages\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Components\" />
+    <Folder Include="Packages\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="dotnet-curses-srimel" Version="1.0.0" />
   </ItemGroup>
 </Project>
