@@ -37,9 +37,13 @@ class Program
         Window window = new (null, yMax / 2, xMax / 2, yMax / 4, xMax / 4);
         window.ShowBorder((char) 0, (char) 0);
         window.MoveAddStr(1, 1, $"Window Dimensions Y: {window.yMax}, X: {window.xMax}");
+        NCurses.WindowAttributeOn(window.WindowPtr, CursesAttribute.BLINK);
+        window.MoveAddStr(2, 1, "Napping for one second...");
+        NCurses.WindowAttributeOff(window.WindowPtr, CursesAttribute.BLINK);
+        window.MoveAddStr(3, 1, "Get ready for a color explosion!");
         window.Refresh();
 
-        NCurses.Nap(1000);
+        NCurses.Nap(4000);
         window.PopulateWindow();
 
         int finalMessageRow = yMax / 4 + window.yMax + 3;
