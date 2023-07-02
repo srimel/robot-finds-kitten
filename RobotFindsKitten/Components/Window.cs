@@ -55,7 +55,7 @@ namespace RobotFindsKitten.Components
 
 		public void MoveCursor(int y, int x)
 		{
-			NCurses.MoveWindowCursor(WindowPtr, y, x);
+			NCurses.WindowMove(WindowPtr, y, x);
 		}
 
 		public void PopulateWindow()

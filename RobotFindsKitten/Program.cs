@@ -50,11 +50,18 @@ class Program
         { 
             for (int j = 1; j < window.xMax - 1; j++)
             { 
-				NCurses.MoveWindowCursor(window.WindowPtr, i, j);
+				NCurses.WindowMove(window.WindowPtr, i, j);
                 window.Refresh();
-                NCurses.Nap(50);
+                NCurses.Nap(10);
 			}
 		}
+
+        var result = NCurses.MoveWindowInspectChar(window.WindowPtr, 1, 1);
+        int resultColorPair = (int) ((result & CursesAttribute.COLOR) >> 8);
+        char resultChar = (char) (result & CursesAttribute.CHARTEXT);
+
+        NCurses.MoveAddString(finalMessageRow + 3, 0, $"First char of window: {resultChar}\nColor Pair: {resultColorPair}");
+        NCurses.Refresh();
 
         window.GetChar();
         NCurses.EndWin();
