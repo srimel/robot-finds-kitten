@@ -7,11 +7,11 @@ namespace RobotFindsKitten.Components
         public IntPtr WindowPtr { get; }
         public bool IsSubWindow { get; } = false;
 
-        public int xMax { get; }
-        public int yMax { get; }
+        public int COLS { get; }
+        public int ROWS { get; }
 
-        public int xOrigin { get; }
-        public int yOrigin { get; }
+        public int OriginX { get; }
+        public int OriginY { get; }
 
         public Window(IntPtr? parent, int rows, int columns, int yStart, int xStart)
         {
@@ -24,13 +24,12 @@ namespace RobotFindsKitten.Components
             {
                 WindowPtr = NCurses.NewWindow(rows, columns, yStart, xStart);
             }
-            int _yMax, _xMax;
-            NCurses.GetMaxYX(WindowPtr, out _yMax, out _xMax);
-            yMax = _yMax;
-            xMax = _xMax;
+            NCurses.GetMaxYX(WindowPtr, out int _yMax, out int _xMax);
+            ROWS = _yMax;
+            COLS = _xMax;
 
-            yOrigin = yStart;
-            xOrigin = xStart;
+            OriginY = yStart;
+            OriginX = xStart;
         }
 
         public void Refresh()
@@ -46,6 +45,7 @@ namespace RobotFindsKitten.Components
         public void ShowBorder(char vert, char horz)
         {
             NCurses.Box(WindowPtr, vert, horz);
+            Refresh();
         }
 
         public void MoveAddStr(int y, int x, string msg)
@@ -74,9 +74,9 @@ namespace RobotFindsKitten.Components
             string characters = "~!@#$%^&*{}QJK";
             int charactersLength = characters.Length;
             int charactersIndex = 0;
-            for (int i = 1; i < yMax - 1; i++)
+            for (int i = 1; i < ROWS - 1; i++)
             {
-                for (int j = 1; j < xMax - 1; j++)
+                for (int j = 1; j < COLS - 1; j++)
                 {
                     if (charactersIndex >= charactersLength)
                     {
