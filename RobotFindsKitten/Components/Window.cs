@@ -72,7 +72,7 @@ namespace RobotFindsKitten.Components
 					{
 						charactersIndex = 0;
 					}
-					int colorPair = rng.Next(1, 6);
+					int colorPair = rng.Next(1, 7);
 					NCurses.WindowAttributeOn(WindowPtr, NCurses.ColorPair(colorPair));
 					MoveAddStr(i, j, characters[charactersIndex].ToString());
 					NCurses.WindowAttributeOff(WindowPtr, NCurses.ColorPair(colorPair));
