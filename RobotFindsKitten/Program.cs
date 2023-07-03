@@ -14,7 +14,7 @@ class Program
         if (!NCurses.HasColors())
         {
             throw new NotSupportedException();
-		}
+        }
 
         Color.InitColors();
 
@@ -27,8 +27,8 @@ class Program
         NCurses.AttributeOff(NCurses.ColorPair(1));
         NCurses.Refresh();
 
-        Window window = new (null, yMax / 2, xMax / 2, yMax / 4, xMax / 4);
-        window.ShowBorder((char) 0, (char) 0);
+        Window window = new(null, yMax / 2, xMax / 2, yMax / 4, xMax / 4);
+        window.ShowBorder((char)0, (char)0);
         window.MoveAddStr(1, 1, $"Window Dimensions Y: {window.yMax}, X: {window.xMax}");
         NCurses.WindowAttributeOn(window.WindowPtr, CursesAttribute.BLINK);
         window.MoveAddStr(2, 1, "Napping for one second...");
@@ -47,18 +47,19 @@ class Program
 
         // Test for moving cursor within in window (automated)
         for (int i = 1; i < window.yMax - 1; i++)
-        { 
+        {
             for (int j = 1; j < window.xMax - 1; j++)
-            { 
-				NCurses.WindowMove(window.WindowPtr, i, j);
+            {
+                NCurses.WindowMove(window.WindowPtr, i, j);
                 window.Refresh();
                 NCurses.Nap(10);
-			}
-		}
+            }
+        }
 
-        var result = NCurses.MoveWindowInspectChar(window.WindowPtr, 1, 1);
-        int resultColorPair = (int) ((result & CursesAttribute.COLOR) >> 8);
-        char resultChar = (char) (result & CursesAttribute.CHARTEXT);
+        //var result = NCurses.MoveWindowInspectChar(window.WindowPtr, 1, 1);
+        var result = NCurses.WindowInspectChar(window.WindowPtr);
+        int resultColorPair = (int)((result & CursesAttribute.COLOR) >> 8);
+        char resultChar = (char)(result & CursesAttribute.CHARTEXT);
 
         NCurses.MoveAddString(finalMessageRow + 3, 0, $"First char of window: {resultChar}\nColor Pair: {resultColorPair}");
         NCurses.Refresh();
