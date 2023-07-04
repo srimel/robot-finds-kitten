@@ -1,7 +1,4 @@
-﻿using Mindmagma.Curses;
-using RobotFindsKitten.Components;
-
-namespace RobotFindsKitten;
+﻿namespace RobotFindsKitten;
 
 class Program
 {
