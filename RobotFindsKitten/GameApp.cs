@@ -9,8 +9,6 @@ namespace RobotFindsKitten
         private readonly Window infoWin;
         private readonly Window mainWin;
 
-        private int finalMessageRow;
-
         public GameApp()
         {
             screen = new();
@@ -54,7 +52,7 @@ namespace RobotFindsKitten
 
         public void TestMessageEndProgram()
         {
-            finalMessageRow = screen.ROWS / 4 + mainWin.ROWS + 3;
+            int finalMessageRow = screen.ROWS / 4 + mainWin.ROWS + 3;
             NCurses.AttributeOn(NCurses.ColorPair(3));
             NCurses.MoveAddString(finalMessageRow, 0, "Press any key to end program...");
             NCurses.AttributeOff(NCurses.ColorPair(3));
@@ -79,6 +77,7 @@ namespace RobotFindsKitten
         public void TestMoveWindowInspect()
         { 
 			// Example of inspecting char at given cursor position
+            int finalMessageRow = screen.ROWS / 4 + mainWin.ROWS + 3;
 			var result = NCurses.MoveWindowInspectChar(mainWin.WindowPtr, 1, 1);
 			int resultColorPair = (int)((result & CursesAttribute.COLOR) >> 8);
 			char resultChar = (char)(result & CursesAttribute.CHARTEXT);
