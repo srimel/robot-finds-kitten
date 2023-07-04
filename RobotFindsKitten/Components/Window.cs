@@ -37,9 +37,9 @@ namespace RobotFindsKitten.Components
             NCurses.WindowRefresh(WindowPtr);
         }
 
-        public void GetChar()
+        public int GetChar()
         {
-            NCurses.WindowGetChar(WindowPtr);
+            return NCurses.WindowGetChar(WindowPtr);
         }
 
         public void ShowBorder(char vert, char horz)

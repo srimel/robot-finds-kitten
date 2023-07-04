@@ -29,9 +29,28 @@ namespace RobotFindsKitten
         public void Run()
         {
             Init();
+            int key = 0;
+            while ((key = NCurses.GetChar()) != CursesKey.ESC)
+            {
+                NCurses.GetYX(mainWin.WindowPtr, out int currY, out int currX);
+                switch (key)
+                {
+                    case CursesKey.LEFT:
+                        mainWin.MoveCursor(currY, currX - 1);
+                        break;
+                    case CursesKey.RIGHT:
+                        mainWin.MoveCursor(currY, currX + 1);
+                        break;
+                    case CursesKey.UP:
+                        mainWin.MoveCursor(currY - 1, currX);
+                        break;
+                    case CursesKey.DOWN:
+                        mainWin.MoveCursor(currY + 1, currX);
+                        break;
+                }
+                mainWin.Refresh();
+            }
             TestMessageEndProgram();
-            TestAutoMoveWindowCursor();
-            TestMoveWindowInspect();
             GetCharEndProgram();
         }
 

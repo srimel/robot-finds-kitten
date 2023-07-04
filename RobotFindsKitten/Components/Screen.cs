@@ -21,7 +21,7 @@ namespace RobotFindsKitten.Components
         {
             NCurses.NoEcho();
             //NCurses.CBreak();
-            //NCurses.Keypad(ScreenPtr, true);
+            NCurses.Keypad(ScreenPtr, true);
             NCurses.SetCursor(1);
 
             Color.InitColors();
