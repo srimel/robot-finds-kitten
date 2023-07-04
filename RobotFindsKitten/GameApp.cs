@@ -27,13 +27,13 @@ namespace RobotFindsKitten
         }
 
         public void Run()
-        { 
-			Init();
-			TestMessageEndProgram();
-			TestAutoMoveWindowCursor();
-			TestMoveWindowInspect();
-			GetCharEndProgram();
-		}
+        {
+            Init();
+            TestMessageEndProgram();
+            TestAutoMoveWindowCursor();
+            TestMoveWindowInspect();
+            GetCharEndProgram();
+        }
 
         public void Init()
         {
@@ -45,10 +45,10 @@ namespace RobotFindsKitten
         }
 
         public void GetCharEndProgram()
-        { 
-			mainWin.GetChar();
-			NCurses.EndWin();
-		}
+        {
+            mainWin.GetChar();
+            NCurses.EndWin();
+        }
 
         public void TestMessageEndProgram()
         {
@@ -75,15 +75,15 @@ namespace RobotFindsKitten
         }
 
         public void TestMoveWindowInspect()
-        { 
-			// Example of inspecting char at given cursor position
+        {
+            // Example of inspecting char at given cursor position
             int finalMessageRow = screen.ROWS / 4 + mainWin.ROWS + 3;
-			var result = NCurses.MoveWindowInspectChar(mainWin.WindowPtr, 1, 1);
-			int resultColorPair = (int)((result & CursesAttribute.COLOR) >> 8);
-			char resultChar = (char)(result & CursesAttribute.CHARTEXT);
-			NCurses.MoveAddString(finalMessageRow + 3, 0, $"First char of window: {resultChar}\nColor Pair: {resultColorPair}");
-			NCurses.Refresh();
-		}
+            var result = NCurses.MoveWindowInspectChar(mainWin.WindowPtr, 1, 1);
+            int resultColorPair = (int)((result & CursesAttribute.COLOR) >> 8);
+            char resultChar = (char)(result & CursesAttribute.CHARTEXT);
+            NCurses.MoveAddString(finalMessageRow + 3, 0, $"First char of window: {resultChar}\nColor Pair: {resultColorPair}");
+            NCurses.Refresh();
+        }
     }
 }
 

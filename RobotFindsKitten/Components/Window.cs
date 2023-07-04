@@ -10,7 +10,7 @@ namespace RobotFindsKitten.Components
         public int ROWS { get; }
         public int OriginX { get; }
         public int OriginY { get; }
-        public List<Tuple<int, int>> Objects { get; set; } 
+        public List<Tuple<int, int>> Objects { get; set; }
 
         public Window(IntPtr? parent, int rows, int columns, int yStart, int xStart)
         {
