@@ -11,6 +11,9 @@ class Program
         screen.ApplySettings();
         screen.SetTitle("Robot Finds Kitten");
 
+        Window info = new(null, screen.ROWS / 8, screen.COLS / 2, screen.ROWS / 8, screen.COLS / 4);
+        info.ShowBorder((char)0, (char)0);
+
         Window window = new(null, screen.ROWS / 2, screen.COLS / 2, screen.ROWS / 4, screen.COLS / 4);
         window.ShowBorder((char)0, (char)0);
         window.PopulateWindow();
@@ -26,7 +29,8 @@ class Program
         {
             for (int j = 1; j < window.COLS - 1; j++)
             {
-                NCurses.WindowMove(window.WindowPtr, i, j);
+                //NCurses.WindowMove(window.WindowPtr, i, j);
+                window.MoveCursor(i, j);
                 window.Refresh();
                 NCurses.Nap(10);
             }

@@ -71,7 +71,7 @@ namespace RobotFindsKitten.Components
         public void PopulateWindow()
         {
             Random rng = new Random();
-            string characters = "~!@#$%^&*{}QJK";
+            string characters = "~!@+$%^&*{}=";
             int charactersLength = characters.Length;
             int charactersIndex = 0;
             for (int i = 1; i < ROWS - 1; i++)
