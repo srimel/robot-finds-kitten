@@ -6,12 +6,11 @@ namespace RobotFindsKitten.Components
     {
         public IntPtr WindowPtr { get; }
         public bool IsSubWindow { get; } = false;
-
         public int COLS { get; }
         public int ROWS { get; }
-
         public int OriginX { get; }
         public int OriginY { get; }
+        public List<Tuple<int, int>> Objects { get; set; } 
 
         public Window(IntPtr? parent, int rows, int columns, int yStart, int xStart)
         {
@@ -30,6 +29,7 @@ namespace RobotFindsKitten.Components
 
             OriginY = yStart;
             OriginX = xStart;
+            Objects = new();
         }
 
         public void Refresh()
@@ -58,6 +58,12 @@ namespace RobotFindsKitten.Components
             NCurses.WindowMove(WindowPtr, y, x);
         }
 
+        public void Clear()
+        {
+            NCurses.ClearWindow(WindowPtr);
+            ShowBorder((char)0, (char)0);
+        }
+
         public uint InspectChar()
         {
             return NCurses.WindowInspectChar(WindowPtr);
@@ -72,22 +78,35 @@ namespace RobotFindsKitten.Components
         {
             Random rng = new Random();
             string characters = "~!@+$%^&*{}=";
-            int charactersLength = characters.Length;
-            int charactersIndex = 0;
-            for (int i = 1; i < ROWS - 1; i++)
+            GenerateRandomPairs(characters.Length);
+
+            if (Objects.Count != characters.Length)
             {
-                for (int j = 1; j < COLS - 1; j++)
+                throw new Exception("Objects does not match char length");
+            }
+
+            for (int i = 0; i < Objects.Count; i++)
+            {
+                int colorPair = rng.Next(1, 7);
+                NCurses.WindowAttributeOn(WindowPtr, NCurses.ColorPair(colorPair));
+                NCurses.MoveWindowAddChar(WindowPtr, Objects[i].Item1, Objects[i].Item2, characters[i]);
+                NCurses.WindowAttributeOff(WindowPtr, NCurses.ColorPair(colorPair));
+                Refresh();
+            }
+        }
+
+        private void GenerateRandomPairs(int numPairs)
+        {
+            Random random = new();
+            while (Objects.Count < numPairs)
+            {
+                int y = random.Next(1, ROWS - 1);
+                int x = random.Next(1, COLS - 1);
+                Tuple<int, int> pair = Tuple.Create(y, x);
+
+                if (!Objects.Contains(pair))
                 {
-                    if (charactersIndex >= charactersLength)
-                    {
-                        charactersIndex = 0;
-                    }
-                    int colorPair = rng.Next(1, 7);
-                    NCurses.WindowAttributeOn(WindowPtr, NCurses.ColorPair(colorPair));
-                    MoveAddStr(i, j, characters[charactersIndex].ToString());
-                    NCurses.WindowAttributeOff(WindowPtr, NCurses.ColorPair(colorPair));
-                    Refresh();
-                    charactersIndex++;
+                    Objects.Add(pair);
                 }
             }
         }
