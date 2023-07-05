@@ -8,6 +8,7 @@ namespace RobotFindsKitten
         private readonly Screen screen;
         private readonly Window infoWin;
         private readonly Window mainWin;
+        private List<Tuple<int, int>> objects;
 
         public GameApp()
         {
@@ -36,16 +37,28 @@ namespace RobotFindsKitten
                 switch (key)
                 {
                     case CursesKey.LEFT:
-                        mainWin.MoveCursor(currY, currX - 1);
+                        if (currX > 1)
+                        {
+                            mainWin.MoveCursor(currY, currX - 1);
+                        }
                         break;
                     case CursesKey.RIGHT:
-                        mainWin.MoveCursor(currY, currX + 1);
+                        if (currX < mainWin.COLS - 2)
+                        {
+                            mainWin.MoveCursor(currY, currX + 1);
+                        }
                         break;
                     case CursesKey.UP:
-                        mainWin.MoveCursor(currY - 1, currX);
+                        if (currY > 1)
+                        {
+                            mainWin.MoveCursor(currY - 1, currX);
+                        }
                         break;
                     case CursesKey.DOWN:
-                        mainWin.MoveCursor(currY + 1, currX);
+                        if (currY < mainWin.ROWS - 2)
+                        {
+                            mainWin.MoveCursor(currY + 1, currX);
+                        }
                         break;
                 }
                 mainWin.Refresh();
@@ -61,6 +74,7 @@ namespace RobotFindsKitten
             infoWin.ShowBorder((char)0, (char)0);
             mainWin.ShowBorder((char)0, (char)0);
             mainWin.PopulateWindow();
+            objects = mainWin.Objects;
         }
 
         public void GetCharEndProgram()
