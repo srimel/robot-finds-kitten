@@ -17,5 +17,6 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="dotnet-curses-srimel" Version="1.0.5" />
+    <PackageReference Include="NAudio" Version="2.1.0" />
   </ItemGroup>
 </Project>

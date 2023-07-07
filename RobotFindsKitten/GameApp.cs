@@ -59,19 +59,49 @@ namespace RobotFindsKitten
                     case CursesKey.RIGHT:
                         if (currX < mainWin.COLS - 2)
                         {
-                            mainWin.MoveCursor(currY, currX + 1);
+                            int x;
+                            if ((x = GetObjectIndex(currY, currX + 1)) >= 0)
+                            {
+                                infoWin.Clear();
+                                AddInfoString(infoWin, stringLibrary[stringMapping[x]]);
+                                infoWin.Refresh();
+							}
+                            else 
+							{ 
+								mainWin.MoveCursor(currY, currX + 1);
+							}
                         }
                         break;
                     case CursesKey.UP:
                         if (currY > 1)
                         {
-                            mainWin.MoveCursor(currY - 1, currX);
+                            int x;
+                            if ((x = GetObjectIndex(currY - 1, currX)) >= 0)
+                            {
+                                infoWin.Clear();
+                                AddInfoString(infoWin, stringLibrary[stringMapping[x]]);
+                                infoWin.Refresh();
+							}
+                            else
+                            { 
+								mainWin.MoveCursor(currY - 1, currX);
+							}
                         }
                         break;
                     case CursesKey.DOWN:
                         if (currY < mainWin.ROWS - 2)
                         {
-                            mainWin.MoveCursor(currY + 1, currX);
+                            int x;
+                            if ((x = GetObjectIndex(currY + 1, currX)) >= 0)
+                            { 
+                                infoWin.Clear();
+                                AddInfoString(infoWin, stringLibrary[stringMapping[x]]);
+                                infoWin.Refresh();
+							}
+                            else
+                            { 
+								mainWin.MoveCursor(currY + 1, currX);
+							}
                         }
                         break;
                 }
