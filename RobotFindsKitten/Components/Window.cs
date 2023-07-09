@@ -87,12 +87,21 @@ namespace RobotFindsKitten.Components
 
             for (int i = 0; i < Objects.Count; i++)
             {
-                int colorPair = rng.Next(1, 7);
+                int colorPair = rng.Next(1, 6);
                 NCurses.WindowAttributeOn(WindowPtr, NCurses.ColorPair(colorPair));
                 NCurses.MoveWindowAddChar(WindowPtr, Objects[i].Item1, Objects[i].Item2, characters[i]);
                 NCurses.WindowAttributeOff(WindowPtr, NCurses.ColorPair(colorPair));
                 Refresh();
             }
+
+            // Move cursor to random poistion not contained in the list
+            Tuple<int, int> initCursor = new(rng.Next(1, ROWS -1), rng.Next(1, COLS - 1));
+            while (Objects.Contains(initCursor))
+            {
+                initCursor = new(rng.Next(1, ROWS - 1), rng.Next(1, COLS - 1));
+			}
+            MoveCursor(initCursor.Item1, initCursor.Item2);
+            Refresh();
         }
 
         private void GenerateRandomPairs(int numPairs)

@@ -117,12 +117,27 @@ namespace RobotFindsKitten
             screen.SetTitle("Robot Finds Kitten");
             infoWin.ShowBorder((char)0, (char)0);
             mainWin.ShowBorder((char)0, (char)0);
+            ShowPressStart();
             mainWin.PopulateWindow();
             objects = mainWin.Objects;
             HideKitten();
             GenerateStringLibrary();
             MapStrings();
         }
+
+        public void ShowPressStart()
+        {
+            mainWin.MoveAddStr(1, 1, "Welcome to Robot Finds Kitten!");
+            mainWin.MoveAddStr(2, 1, "The goal of the game is to find");
+            mainWin.MoveAddStr(3, 1, "the kitten by moving around the robot");
+            mainWin.MoveAddStr(4, 1, "with the arrow keys.");
+            NCurses.WindowAttributeOn(mainWin.WindowPtr, CursesAttribute.BLINK);
+            mainWin.MoveAddStr(5, 1, "Press any key to start the game!");
+            NCurses.WindowAttributeOff(mainWin.WindowPtr, CursesAttribute.BLINK);
+            mainWin.MoveAddStr(6, 1, "Press ESC at any time to end the game.");
+            mainWin.GetChar();
+            mainWin.Clear();
+		}
 
         private void HideKitten()
         {
