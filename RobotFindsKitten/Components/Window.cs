@@ -67,7 +67,7 @@ namespace RobotFindsKitten.Components
         public void ClearNoBorder()
         {
             NCurses.ClearWindow(WindowPtr);
-		}
+        }
 
         public uint InspectChar()
         {

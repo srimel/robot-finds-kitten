@@ -155,7 +155,7 @@ namespace RobotFindsKitten
             if (won)
             {
                 MessageScore();
-			}
+            }
             MessageEndProgram();
             GetCharEndProgram();
         }
@@ -284,13 +284,13 @@ namespace RobotFindsKitten
             mainWin.GetChar();
             NCurses.EndWin();
         }
-        
+
         public void MessageScore()
-        { 
+        {
             int messageRow = screen.ROWS / 4 + mainWin.ROWS + 3;
             string finalScore = $"You looked at {score} objects before finding kitten!";
             NCurses.MoveAddString(messageRow, 0, finalScore);
-		}
+        }
 
         public void MessageEndProgram()
         {
