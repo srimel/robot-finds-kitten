@@ -152,7 +152,11 @@ namespace RobotFindsKitten
                 }
                 mainWin.Refresh();
             }
-            TestMessageEndProgram();
+            if (won)
+            {
+                MessageScore();
+			}
+            MessageEndProgram();
             GetCharEndProgram();
         }
 
@@ -162,7 +166,6 @@ namespace RobotFindsKitten
             screen.SetTitle("Robot Finds Kitten");
             infoWin.ShowBorder((char)0, (char)0);
             mainWin.ShowBorder((char)0, (char)0);
-            scoreWin.ShowBorder((char)0, (char)0);
             ShowScore();
             ShowPressStart();
             mainWin.PopulateWindow();
@@ -174,7 +177,7 @@ namespace RobotFindsKitten
 
         public void ShowScore()
         {
-            scoreWin.Clear();
+            scoreWin.ClearNoBorder();
             string scoreString = $"SCORE: {score}";
             NCurses.WindowAddString(scoreWin.WindowPtr, scoreString);
             scoreWin.Refresh();
@@ -281,10 +284,17 @@ namespace RobotFindsKitten
             mainWin.GetChar();
             NCurses.EndWin();
         }
+        
+        public void MessageScore()
+        { 
+            int messageRow = screen.ROWS / 4 + mainWin.ROWS + 3;
+            string finalScore = $"You looked at {score} objects before finding kitten!";
+            NCurses.MoveAddString(messageRow, 0, finalScore);
+		}
 
-        public void TestMessageEndProgram()
+        public void MessageEndProgram()
         {
-            int finalMessageRow = screen.ROWS / 4 + mainWin.ROWS + 3;
+            int finalMessageRow = (screen.ROWS / 4 + mainWin.ROWS + 3) + 1;
             NCurses.AttributeOn(NCurses.ColorPair(3) | CursesAttribute.BLINK);
             NCurses.MoveAddString(finalMessageRow, 0, "Press any key to end program...");
             NCurses.AttributeOff(NCurses.ColorPair(3) | CursesAttribute.BLINK);
