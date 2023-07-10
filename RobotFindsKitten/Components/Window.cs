@@ -95,11 +95,11 @@ namespace RobotFindsKitten.Components
             }
 
             // Move cursor to random poistion not contained in the list
-            Tuple<int, int> initCursor = new(rng.Next(1, ROWS -1), rng.Next(1, COLS - 1));
+            Tuple<int, int> initCursor = new(rng.Next(1, ROWS - 1), rng.Next(1, COLS - 1));
             while (Objects.Contains(initCursor))
             {
                 initCursor = new(rng.Next(1, ROWS - 1), rng.Next(1, COLS - 1));
-			}
+            }
             MoveCursor(initCursor.Item1, initCursor.Item2);
             Refresh();
         }

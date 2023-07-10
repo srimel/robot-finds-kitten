@@ -55,18 +55,18 @@ namespace RobotFindsKitten
                             int x;
                             if ((x = GetObjectIndex(currY, currX - 1)) >= 0)
                             {
-								infoWin.Clear();
+                                infoWin.Clear();
                                 if (x == kitten)
                                 {
                                     ShowWinState();
-								}
+                                }
                                 else
-                                { 
-									AddInfoString(infoWin, stringLibrary[stringMapping[x]]);
+                                {
+                                    AddInfoString(infoWin, stringLibrary[stringMapping[x]]);
                                     score += 1;
                                     ShowScore();
-								}
-								infoWin.Refresh();
+                                }
+                                infoWin.Refresh();
                             }
                             else
                             {
@@ -84,19 +84,19 @@ namespace RobotFindsKitten
                                 if (x == kitten)
                                 {
                                     ShowWinState();
-								}
+                                }
                                 else
-                                { 
-									AddInfoString(infoWin, stringLibrary[stringMapping[x]]);
+                                {
+                                    AddInfoString(infoWin, stringLibrary[stringMapping[x]]);
                                     score += 1;
                                     ShowScore();
-								}
+                                }
                                 infoWin.Refresh();
-							}
-                            else 
-							{ 
-								mainWin.MoveCursor(currY, currX + 1);
-							}
+                            }
+                            else
+                            {
+                                mainWin.MoveCursor(currY, currX + 1);
+                            }
                         }
                         break;
                     case CursesKey.UP:
@@ -109,19 +109,19 @@ namespace RobotFindsKitten
                                 if (x == kitten)
                                 {
                                     ShowWinState();
-								}
+                                }
                                 else
-                                { 
-									AddInfoString(infoWin, stringLibrary[stringMapping[x]]);
+                                {
+                                    AddInfoString(infoWin, stringLibrary[stringMapping[x]]);
                                     score += 1;
                                     ShowScore();
-								}
+                                }
                                 infoWin.Refresh();
-							}
+                            }
                             else
-                            { 
-								mainWin.MoveCursor(currY - 1, currX);
-							}
+                            {
+                                mainWin.MoveCursor(currY - 1, currX);
+                            }
                         }
                         break;
                     case CursesKey.DOWN:
@@ -129,24 +129,24 @@ namespace RobotFindsKitten
                         {
                             int x;
                             if ((x = GetObjectIndex(currY + 1, currX)) >= 0)
-                            { 
+                            {
                                 infoWin.Clear();
                                 if (x == kitten)
                                 {
                                     ShowWinState();
-								}
+                                }
                                 else
-                                { 
-									AddInfoString(infoWin, stringLibrary[stringMapping[x]]);
+                                {
+                                    AddInfoString(infoWin, stringLibrary[stringMapping[x]]);
                                     score += 1;
                                     ShowScore();
-								}
+                                }
                                 infoWin.Refresh();
-							}
+                            }
                             else
-                            { 
-								mainWin.MoveCursor(currY + 1, currX);
-							}
+                            {
+                                mainWin.MoveCursor(currY + 1, currX);
+                            }
                         }
                         break;
                 }
@@ -178,13 +178,13 @@ namespace RobotFindsKitten
             string scoreString = $"SCORE: {score}";
             NCurses.WindowAddString(scoreWin.WindowPtr, scoreString);
             scoreWin.Refresh();
-		}
+        }
 
         public void ShowWinState()
-        { 
-			AddInfoString(infoWin, "You found the kitten!");
-			won = true;
-		}
+        {
+            AddInfoString(infoWin, "You found the kitten!");
+            won = true;
+        }
 
         public void ShowPressStart()
         {
@@ -198,7 +198,7 @@ namespace RobotFindsKitten
             mainWin.MoveAddStr(6, 1, "Press ESC at any time to end the game.");
             mainWin.GetChar();
             mainWin.Clear();
-		}
+        }
 
         private void HideKitten()
         {
@@ -264,17 +264,17 @@ namespace RobotFindsKitten
         {
             int s = 0;
             for (int i = 1; i < win.ROWS - 1; i++)
-            { 
+            {
                 for (int j = 1; j < win.COLS - 1; j++)
                 {
                     if (s < msg.Length)
-                    { 
-						NCurses.MoveWindowAddChar(win.WindowPtr, i, j, msg[s]);
-						s++;
-					}
-				}
-			}
-		}
+                    {
+                        NCurses.MoveWindowAddChar(win.WindowPtr, i, j, msg[s]);
+                        s++;
+                    }
+                }
+            }
+        }
 
         public void GetCharEndProgram()
         {
