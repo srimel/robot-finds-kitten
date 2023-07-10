@@ -6,12 +6,15 @@ namespace RobotFindsKitten
     public class GameApp
     {
         private readonly Screen screen;
+        private readonly Window scoreWin;
         private readonly Window infoWin;
         private readonly Window mainWin;
         private List<Tuple<int, int>> objects;
         private List<string> stringLibrary;
         private List<int> stringMapping;
         private int kitten;
+        private bool won = false;
+        private int score = 0;
 
         public GameApp()
         {
@@ -29,13 +32,19 @@ namespace RobotFindsKitten
                 screen.ROWS / 4,
                 screen.COLS / 4);
 
+            scoreWin = new(null,
+                screen.ROWS / 16,
+                screen.COLS / 2,
+                screen.ROWS / 11,
+                screen.COLS / 4);
+
             Init();
         }
 
         public void Run()
         {
             int key;
-            while ((key = NCurses.GetChar()) != CursesKey.ESC)
+            while ((key = NCurses.GetChar()) != CursesKey.ESC && !won)
             {
                 NCurses.GetYX(mainWin.WindowPtr, out int currY, out int currX);
                 switch (key)
@@ -46,9 +55,18 @@ namespace RobotFindsKitten
                             int x;
                             if ((x = GetObjectIndex(currY, currX - 1)) >= 0)
                             {
-                                infoWin.Clear();
-                                AddInfoString(infoWin, stringLibrary[stringMapping[x]]);
-                                infoWin.Refresh();
+								infoWin.Clear();
+                                if (x == kitten)
+                                {
+                                    ShowWinState();
+								}
+                                else
+                                { 
+									AddInfoString(infoWin, stringLibrary[stringMapping[x]]);
+                                    score += 1;
+                                    ShowScore();
+								}
+								infoWin.Refresh();
                             }
                             else
                             {
@@ -63,7 +81,16 @@ namespace RobotFindsKitten
                             if ((x = GetObjectIndex(currY, currX + 1)) >= 0)
                             {
                                 infoWin.Clear();
-                                AddInfoString(infoWin, stringLibrary[stringMapping[x]]);
+                                if (x == kitten)
+                                {
+                                    ShowWinState();
+								}
+                                else
+                                { 
+									AddInfoString(infoWin, stringLibrary[stringMapping[x]]);
+                                    score += 1;
+                                    ShowScore();
+								}
                                 infoWin.Refresh();
 							}
                             else 
@@ -79,7 +106,16 @@ namespace RobotFindsKitten
                             if ((x = GetObjectIndex(currY - 1, currX)) >= 0)
                             {
                                 infoWin.Clear();
-                                AddInfoString(infoWin, stringLibrary[stringMapping[x]]);
+                                if (x == kitten)
+                                {
+                                    ShowWinState();
+								}
+                                else
+                                { 
+									AddInfoString(infoWin, stringLibrary[stringMapping[x]]);
+                                    score += 1;
+                                    ShowScore();
+								}
                                 infoWin.Refresh();
 							}
                             else
@@ -95,7 +131,16 @@ namespace RobotFindsKitten
                             if ((x = GetObjectIndex(currY + 1, currX)) >= 0)
                             { 
                                 infoWin.Clear();
-                                AddInfoString(infoWin, stringLibrary[stringMapping[x]]);
+                                if (x == kitten)
+                                {
+                                    ShowWinState();
+								}
+                                else
+                                { 
+									AddInfoString(infoWin, stringLibrary[stringMapping[x]]);
+                                    score += 1;
+                                    ShowScore();
+								}
                                 infoWin.Refresh();
 							}
                             else
@@ -117,6 +162,8 @@ namespace RobotFindsKitten
             screen.SetTitle("Robot Finds Kitten");
             infoWin.ShowBorder((char)0, (char)0);
             mainWin.ShowBorder((char)0, (char)0);
+            scoreWin.ShowBorder((char)0, (char)0);
+            ShowScore();
             ShowPressStart();
             mainWin.PopulateWindow();
             objects = mainWin.Objects;
@@ -124,6 +171,20 @@ namespace RobotFindsKitten
             GenerateStringLibrary();
             MapStrings();
         }
+
+        public void ShowScore()
+        {
+            scoreWin.Clear();
+            string scoreString = $"SCORE: {score}";
+            NCurses.WindowAddString(scoreWin.WindowPtr, scoreString);
+            scoreWin.Refresh();
+		}
+
+        public void ShowWinState()
+        { 
+			AddInfoString(infoWin, "You found the kitten!");
+			won = true;
+		}
 
         public void ShowPressStart()
         {
@@ -163,8 +224,6 @@ namespace RobotFindsKitten
             return -1;
         }
 
-        // Game idea: find cat treats which gives a bonus somehow
-        // Maybe write all of these as the player's thoughts as their walking around. (write up about this)
         private void GenerateStringLibrary()
         {
             stringLibrary = new()
@@ -226,9 +285,9 @@ namespace RobotFindsKitten
         public void TestMessageEndProgram()
         {
             int finalMessageRow = screen.ROWS / 4 + mainWin.ROWS + 3;
-            NCurses.AttributeOn(NCurses.ColorPair(3));
+            NCurses.AttributeOn(NCurses.ColorPair(3) | CursesAttribute.BLINK);
             NCurses.MoveAddString(finalMessageRow, 0, "Press any key to end program...");
-            NCurses.AttributeOff(NCurses.ColorPair(3));
+            NCurses.AttributeOff(NCurses.ColorPair(3) | CursesAttribute.BLINK);
             NCurses.Refresh();
         }
 

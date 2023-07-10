@@ -19,6 +19,7 @@ namespace RobotFindsKitten.Components
 
         public void ApplySettings()
         {
+            //NCurses.ResizeTerminal(86, 42);
             NCurses.NoEcho();
             //NCurses.CBreak();
             NCurses.Keypad(ScreenPtr, true);
